@@ -7,14 +7,14 @@ const { SQL_USER,SQL_PASSWORD,SQL_SERVER,SQL_DB,
     SQL_SERVER_PORT,SQL_ENCRYPT,SQL_TRUST_SERVER_CERTIFICATE } = process.env
 
 const sqlConfig = {
-    user: SQL_USER || 'sa',
-    password:SQL_PASSWORD|| 'Kimani@1092',
-    server: SQL_SERVER || 'localhost',
-    database:SQL_DB || 'KIMANI',
-    port: SQL_SERVER_PORT || 1433,    
+    user: SQL_USER,
+    password:SQL_PASSWORD, 
+    server: SQL_SERVER,
+    database:SQL_DB,
+    port: SQL_SERVER_PORT,    
     options: {
-        encrypt:Boolean(SQL_ENCRYPT) || true, // true for azure & false for local dev,
-        trustServerCertificate:Boolean(SQL_TRUST_SERVER_CERTIFICATE) || true,  // true for local dev & false for azure
+        encrypt:Boolean(SQL_ENCRYPT), // true for azure & false for local dev,
+        trustServerCertificate:Boolean(SQL_TRUST_SERVER_CERTIFICATE), // true for local dev & false for azure
 
     }
 }
