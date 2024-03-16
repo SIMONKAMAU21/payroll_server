@@ -33,3 +33,31 @@ export const getUserByEmail = async (req, res) => {
    return res.status(500).json({ message: error.message });
   }
 };
+
+
+export const loginUser = async (Email, Password) => {
+  try {
+    // Fetch user by email
+    const user = await getUserByEmailService(Email);
+
+    // Check if user exists
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    // Compare passwords
+    const passwordMatch = await bcrypt.compare(Password, user.Password);
+
+    if (!passwordMatch) {
+      throw new Error('Invalid password');
+    }
+
+    // Generate JWT token
+    const token = Jwt.sign({ Email: user.Email }, process.env.JWT_SECRET, { expiresIn: '12h' });
+
+    // Return user details and token
+    return { user, token };
+  } catch (error) {
+    throw new Error('Login failed: ' + error.message);
+  }
+};
