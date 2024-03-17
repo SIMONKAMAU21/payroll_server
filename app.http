@@ -10,14 +10,53 @@ POST httP://localhost:8000/api/users
 Content-Type: application/json
 
 {
-    "Email":"john@example.com"
+    "Email":"simon@gmail.com"
 }
 
 ###
-POST httP://localhost:8000/api/users
+POST httP://localhost:8000/api/users/login
 Content-Type: application/json
 
 {
-    "Email":"jane@example.com",
+    "Email":"simon@gmail.com",
     "Password":"1234@s"
 }
+
+###
+POST http://localhost:8000/api/users/register
+Content-Type: application/json
+
+{
+    "Firstname":"simon",
+    "Lastname":"kamau",
+    "Address":"Nyeri",
+    "BirthDate":"1990-01-12",
+    "ContactInfo":"0759717794",
+    "Admin":"1",
+    "PositionID":"1",
+    "ScheduleID":"1",
+    "PhotoURL":"https://example.com/photo.jpgsimon",
+    "Email":"simon@gmail.com",
+    "Password":"simon1"
+}
+
+###
+PUT http://localhost:8000/api/users/update/1
+Content-Type: application/json
+
+{
+    "Firstname":"simon",
+    "Lastname":"kimani",
+    "Address":"Nyeri",
+    "BirthDate":"1990-01-12",
+    "ContactInfo":"0759717794",
+    "Admin":"1",
+    "PositionID":"1",
+    "ScheduleID":"1",
+    "PhotoURL":"https://example.com/photo.jpgsimon",
+    "Email":"simon@gmail.com",
+    "Password":"simon1"
+}
+###
+DELETE http://localhost:8000/api/users/delete/5
+Content-Type: application/json

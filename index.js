@@ -40,6 +40,7 @@ app.get('/health',(req,res)=>{
 // });
 app.use('/api',userRouter)
 
+
 app.listen(port, ()=>{
     logger.info(`The server is running on http://localhost:${port}`);
 })
