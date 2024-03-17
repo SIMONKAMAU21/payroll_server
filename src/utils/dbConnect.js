@@ -5,7 +5,6 @@ import logger from './logger.js'
 dotenv.config();
 const { SQL_USER,SQL_PASSWORD,SQL_SERVER,SQL_DB,
     SQL_SERVER_PORT,SQL_ENCRYPT,SQL_TRUST_SERVER_CERTIFICATE } = process.env
-    console.log(SQL_USER)
 
 const sqlConfig = {
     user: SQL_USER ,
@@ -28,11 +27,11 @@ try {
     poolRequest = () => appPool.request();
     if (appPool) {
         console.log('Connected to SQL Server');
-        // logger.info("Connected to SQL Server");
+        logger.info("Connected to SQL Server");
     }
 } catch (error) {
     console.log('Error creating connection pool', error);
-    // logger.error("Error creating connection pool", error);
+    logger.error("Error creating connection pool", error);
   }
 
 
