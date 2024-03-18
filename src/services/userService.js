@@ -39,9 +39,22 @@ export const getUserByEmailService = async (Email) => {
     throw new Error('Could not fetch user by email: ' + error.message);
   }
 };
+
+
+export const checkEmailExists = async (Email) => {
+  try {
+    const result = await poolRequest()
+      .input('Email', sql.VarChar, Email)
+      .query('SELECT * FROM Employees WHERE Email = @Email');
+
+    return result.recordset.length > 0;
+  } catch (error) {
+    throw new Error('Error checking email existence: ' + error.message);
+  }
+};
+
 ////////////adding a user/;////////////
 export const addUserServices = async (newUser) => {
-  console.log("user created", newUser)
   try {
     const user = await poolRequest()
       .input('Firstname', sql.VarChar, newUser.Firstname)
@@ -57,7 +70,6 @@ export const addUserServices = async (newUser) => {
       .input('Password', sql.VarChar, newUser.Password)
       .query(`INSERT INTO Employees(Firstname,Lastname,Address,BirthDate,ContactInfo,Admin,PositionID,ScheduleID,PhotoURL,Email,Password)VALUES(@Firstname,@Lastname,@Address,@BirthDate,@ContactInfo,@Admin,@PositionID,@ScheduleID,@PhotoURL,@Email,@Password)`
       )
-    console.log("user details sent to the database", user)
     return user
   } catch (error) {
     return error.message

@@ -18,8 +18,8 @@ POST httP://localhost:8000/api/users/login
 Content-Type: application/json
 
 {
-    "Email":"simon@gmail.com",
-    "Password":"1234@s"
+    "Email":"simogatuma21@gmail.com",
+    "Password":"simonkamau"
 }
 
 ###
@@ -27,25 +27,25 @@ POST http://localhost:8000/api/users/register
 Content-Type: application/json
 
 {
-    "Firstname":"simon",
-    "Lastname":"kamau",
+    "Firstname":"leah",
+    "Lastname":"Nyambura",
     "Address":"Nyeri",
     "BirthDate":"1990-01-12",
-    "ContactInfo":"0759717794",
+    "ContactInfo":"0705957078",
     "Admin":"1",
     "PositionID":"1",
     "ScheduleID":"1",
     "PhotoURL":"https://example.com/photo.jpgsimon",
-    "Email":"simon@gmail.com",
-    "Password":"simon1"
+    "Email":"simogatuma21@gmail.com",
+    "Password":"leah nyambura2314@"
 }
 
 ###
-PUT http://localhost:8000/api/users/update/1
+PUT http://localhost:8000/api/users/update/51
 Content-Type: application/json
 
 {
-    "Firstname":"simon",
+    "Firstname":"kimani",
     "Lastname":"kimani",
     "Address":"Nyeri",
     "BirthDate":"1990-01-12",
@@ -54,9 +54,39 @@ Content-Type: application/json
     "PositionID":"1",
     "ScheduleID":"1",
     "PhotoURL":"https://example.com/photo.jpgsimon",
-    "Email":"simon@gmail.com",
-    "Password":"simon1"
+    "Email":"simon@gmail.com"
+  
 }
 ###
-DELETE http://localhost:8000/api/users/delete/5
+DELETE http://localhost:8000/api/users/delete/53
+Content-Type: application/json
+
+
+
+
+
+### creating a position
+POST http://localhost:8000/api/positions/register
+Content-Type: application/json
+
+{
+    "Title":"kofware",
+    "Basic_Salary":"60000"
+}
+### updating a position
+PUT http://localhost:8000/api/positions/update/4
+Content-Type: application/json
+
+{
+    "Title":"Sofware",
+    "Basic_Salary":"70000"
+}
+
+
+### getting all positions
+GET http://localhost:8000/api/Positions
+
+
+### deleting position
+DELETE http://localhost:8000/api/positions/delete/2
 Content-Type: application/json
