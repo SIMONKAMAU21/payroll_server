@@ -122,11 +122,11 @@ export const addUser = async (req, res) => {
 
     const response = await addUserServices(newUser);
     if (response.rowsAffected > 0) {
-      // Send email to the newly registered user
       await sendEmail(newUser);
       sendCreated(res, 'Employee created successfully');
     } else {
       sendServerError(res, 'Failed to create employee');
+      console.log(response)
     }
   } catch (error) {
     sendServerError(res, error.message);

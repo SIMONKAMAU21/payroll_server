@@ -5,6 +5,7 @@ import logger from './src/utils/logger.js'
 import cors from 'cors'
 import userRouter from './src/routes/userRouter.js'
 import positionRouter from './src/routes/positionRouter.js'
+import SchedulesRouter from './src/routes/scheduleRouter.js'
 
 
 dotenv.config()
@@ -25,7 +26,7 @@ app.get('/health',(req,res)=>{
 
 
 
-
+app.use('/api',SchedulesRouter)
 app.use('/api',userRouter),
 app.use('/api',positionRouter)
 
