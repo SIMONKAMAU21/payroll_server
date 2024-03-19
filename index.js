@@ -9,6 +9,7 @@ import SchedulesRouter from './src/routes/scheduleRouter.js'
 import AttendanceRouter from './src/routes/attendanceRouter.js'
 import DeductionRouter from './src/routes/deductionRouter.js'
 import AdvanceRouter from './src/routes/addvanceRouter'
+import OvertimeRouter from './src/routes/overtimeRouter.js'
 
 
 dotenv.config()
@@ -35,6 +36,7 @@ app.use('/api',positionRouter)
 app.use('/api',AttendanceRouter)
 app.use('/api',DeductionRouter)
 app.use('/api',AdvanceRouter)
+app.use('/api',OvertimeRouter)
 
 
 app.listen(port, ()=>{

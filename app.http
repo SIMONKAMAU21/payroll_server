@@ -22,7 +22,7 @@ Content-Type: application/json
     "Password":"leah"
 }
 
-###
+### REGISTERING A USER
 POST http://localhost:8000/api/users/register
 Content-Type: application/json
 
@@ -36,11 +36,11 @@ Content-Type: application/json
     "ContactInfo":"0705957078",
     "Admin":"1",
     "PhotoURL":"https://example.com/photo.jpgsimon",
-    "Email":"simogatuma23@gmail.com",
+    "Email":"simogatuma21@gmail.com",
     "Password":"leah "
 }
 
-###
+###UPDATING USER BY ID
 PUT http://localhost:8000/api/users/update/4
 Content-Type: application/json
 
@@ -54,11 +54,13 @@ Content-Type: application/json
     "Position":"rep",
     "Schedule":"night",
     "PhotoURL":"https://example.com/photo.jpgsimon",
-    "Email":"simon@gmail.com"
+    "Email":"simon@gmail.com",
+  "Password":"leah "
+
   
 }
-###
-DELETE http://localhost:8000/api/users/delete/53
+### DELETING USERS
+DELETE http://localhost:8000/api/users/delete/4
 Content-Type: application/json
 
 
@@ -110,7 +112,7 @@ GET http://localhost:8000/api/Schedules
 DELETE http://localhost:8000/api/Schedules/delete/1
 Content-Type: application/json
 
-###
+###UPDATING SCHEDULE
 PUT http://localhost:8000/api/Schedules/update/3
 Content-Type: application/json
 
@@ -157,11 +159,11 @@ Content-Type: application/json
     "Amount": "50000.00"
 }
 
-###
+### getting all deductions
 GET http://localhost:8000/api/Deduction
 
 
-####
+#### updating deduction
 PUT http://localhost:8000/api/Deduction/update/1
 Content-Type: application/json
 
@@ -169,15 +171,59 @@ Content-Type: application/json
     "Description": "added a new description",
     "Amount": "50000.00"
 }
-###
+### deleting deduction
 DELETE http://localhost:8000/api/Deduction/delete/1
 
-###
-
+### creating advanced cash
 POST http://localhost:8000/api/Advance/register
 Content-Type: application/json
 
 {
    "Date": "2024-03-18",
     "Amount": "50000.00"
+}
+
+### getting all advance
+GET http://localhost:8000/api/Advance
+
+### deleting advance cash
+DELETE http://localhost:8000/api/Advance/delete/1
+
+### updating advance cash
+PUT http://localhost:8000/api/Advance/update/2
+Content-Type: application/json
+
+{
+   "Date": "2024-03-18",
+    "Amount": "60000.00"
+}
+
+### ADDING OVERTIME
+POST http://localhost:8000/api/Overtime/register
+Content-Type: application/json
+
+{
+   "Date": "2024-03-18",
+    "Hours": "2",
+    "Minutes": "59",
+    "Rate": "50000.00"
+}
+### GETTING OVERTIME BY ID
+GET http://localhost:8000/api/Overtime/1
+
+### GETTING ALL OVERTIMES
+GET http://localhost:8000/api/Overtime
+
+### DELETING OVERTIME
+DELETE http://localhost:8000/api/Overtime/delete/1
+
+#### UPDATING OVERTIME
+PUT http://localhost:8000/api/Overtime/update/2
+Content-Type: application/json
+
+{
+   "Date": "2024-03-18",
+    "Hours": "2",
+    "Minutes": "69",
+    "Rate": "50000.00"
 }
