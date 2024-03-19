@@ -1,7 +1,6 @@
 import dotenv from 'dotenv';
-import logger from '../utils/logger.js';
 import { getAllUserServices, getUserByEmailService, addUserServices, updateUserServices, deleteUserServices, checkEmailExists } from '../services/userService.js';
-import { sendBadRequest, sendCreated, sendDeleteSuccess, sendNotFound, sendServerError, sendSuccess } from '../helper/helper.function.js'
+import { hashPassword, sendBadRequest, sendCreated, sendDeleteSuccess, sendNotFound, sendServerError, sendSuccess } from '../helper/helper.function.js'
 import bcrypt from "bcrypt"
 import Jwt from 'jsonwebtoken';
 import nodemailer from 'nodemailer'
@@ -26,7 +25,7 @@ export const getUserByEmail = async (req, res) => {
   try {
     const userEmail = {
       Email: req.body.Email
-    }
+    };
     const user = await getUserByEmailService(userEmail.Email);
     return res.status(200).json(user);
   } catch (error) {
@@ -43,24 +42,23 @@ export const loginUser = async (req, res) => {
     const userDetails = {
       Email: req.body.Email,
       Password: req.body.Password
-    }
+    };
+
     const user = await getUserByEmailService(userDetails.Email);
     if (!user) {
-      throw new Error('User not found');
+      return res.status(404).json({ message: 'User not found' });
     }
 
-    // // Compare hashed password
-    // const passwordMatch = await bcrypt.compare(userDetails.Password, user.Password);
-    // if (!passwordMatch) {
-    //   throw new Error('Invalid password');
-    // }
+    const passwordMatch = await bcrypt.compare(userDetails.Password, user.Password);
+    if (!passwordMatch) {
+      return res.status(401).json({ message: 'Invalid password' });
+    }
 
-    // Generate JWT token
     const token = Jwt.sign({ Email: user.Email }, process.env.JWT_SECRET, { expiresIn: '12h' });
 
-    return response = { user, token };
+    return res.status(200).json({ user, token });
   } catch (error) {
-    throw new Error('Login failed: ' + error.message);
+    return res.status(500).json({ message: 'Login failed', error: error.message });
   }
 };
 
@@ -99,7 +97,7 @@ const sendEmail = async (user) => {
 
 
 export const addUser = async (req, res) => {
-  const { Firstname, Lastname, Address, BirthDate, ContactInfo, Admin, PositionID, ScheduleID, PhotoURL, Email, Password } = req.body;
+  const { Firstname, Lastname, Address, BirthDate, ContactInfo, Admin, Position, Schedule, PhotoURL, Email, Password } = req.body;
   try {
     const existingUser = await checkEmailExists(Email);
     if (existingUser) {
@@ -113,14 +111,15 @@ export const addUser = async (req, res) => {
       BirthDate,
       ContactInfo,
       Admin,
-      PositionID,
-      ScheduleID,
+      Position,
+      Schedule,
       PhotoURL,
       Email,
-      Password
+      Password:await hashPassword(Password)
     };
 
     const response = await addUserServices(newUser);
+    console.log(response)
     if (response.rowsAffected > 0) {
       await sendEmail(newUser);
       sendCreated(res, 'Employee created successfully');

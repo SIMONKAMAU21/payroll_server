@@ -10,7 +10,7 @@ POST httP://localhost:8000/api/users
 Content-Type: application/json
 
 {
-    "Email":"simon@gmail.com"
+    "Email":"simogatuma24@gmail.com"
 }
 
 ###
@@ -18,8 +18,8 @@ POST httP://localhost:8000/api/users/login
 Content-Type: application/json
 
 {
-    "Email":"simogatuma21@gmail.com",
-    "Password":"simonkamau"
+    "Email":"simogatuma24@gmail.com", 
+    "Password":"leah"
 }
 
 ###
@@ -30,16 +30,18 @@ Content-Type: application/json
     "Firstname":"leah",
     "Lastname":"Nyambura",
     "Address":"Nyeri",
+    "Position":"Manager",
+    "Schedule":"Morning shift",
     "BirthDate":"1990-01-12",
     "ContactInfo":"0705957078",
     "Admin":"1",
     "PhotoURL":"https://example.com/photo.jpgsimon",
-    "Email":"simogatuma21@gmail.com",
-    "Password":"leah nyambura2314@"
+    "Email":"simogatuma23@gmail.com",
+    "Password":"leah "
 }
 
 ###
-PUT http://localhost:8000/api/users/update/51
+PUT http://localhost:8000/api/users/update/4
 Content-Type: application/json
 
 {
@@ -49,8 +51,8 @@ Content-Type: application/json
     "BirthDate":"1990-01-12",
     "ContactInfo":"0759717794",
     "Admin":"1",
-    "PositionID":"1",
-    "ScheduleID":"1",
+    "Position":"rep",
+    "Schedule":"night",
     "PhotoURL":"https://example.com/photo.jpgsimon",
     "Email":"simon@gmail.com"
   
@@ -86,7 +88,7 @@ GET http://localhost:8000/api/Positions
 
 
 ### deleting position
-DELETE http://localhost:8000/api/positions/delete/2
+DELETE http://localhost:8000/api/positions/delete/1
 Content-Type: application/json
 
 
@@ -105,7 +107,7 @@ Content-Type: application/json
 GET http://localhost:8000/api/Schedules
 
 ### deleting schedules
-DELETE http://localhost:8000/api/Schedules/delete/4
+DELETE http://localhost:8000/api/Schedules/delete/1
 Content-Type: application/json
 
 ###
@@ -115,6 +117,67 @@ Content-Type: application/json
 
 {
     "Schedules_name": "Night Shift",
-    "StartTime": "2024-03-18 09:00:00", // Adjust the date as needed
-    "EndTime": "2024-03-18 00:00:00" // Adjust the date as needed
+    "StartTime": "2024-03-18 09:00:00", 
+    "EndTime": "2024-03-18 00:00:00" 
+}
+
+### creating a new attendance
+POST http://localhost:8000/api/Attendance/register
+Content-Type: application/json
+
+{
+    "Date": "2024-03-18",
+    "TimeIn": "2024-03-18,09:00:00", 
+    "TimeOut": "2024-03-18,00:00:00" 
+}
+### geting all attendance
+GET http://localhost:8000/api/Attendance
+
+### update attendance
+PUT  http://localhost:8000/api/Attendance/update/1
+Content-Type: application/json
+
+{
+    "Date": "2024-03-18",
+    "TimeIn": "2024-03-18,010:00:00", 
+    "TimeOut": "2024-03-18,00:00:00" 
+}
+### delete attendance
+DELETE http://localhost:8000/api/Attendance/delete/1
+Content-Type: application/json
+
+
+
+### creating a deduction
+POST http://localhost:8000/api/Deduction/register
+Content-Type: application/json
+
+{
+    "Description": "added a new description",
+    "Amount": "50000.00"
+}
+
+###
+GET http://localhost:8000/api/Deduction
+
+
+####
+PUT http://localhost:8000/api/Deduction/update/1
+Content-Type: application/json
+
+{
+    "Description": "added a new description",
+    "Amount": "50000.00"
+}
+###
+DELETE http://localhost:8000/api/Deduction/delete/1
+
+###
+
+POST http://localhost:8000/api/Advance/register
+Content-Type: application/json
+
+{
+   "Date": "2024-03-18",
+    "Amount": "50000.00"
 }

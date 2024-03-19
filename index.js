@@ -6,6 +6,9 @@ import cors from 'cors'
 import userRouter from './src/routes/userRouter.js'
 import positionRouter from './src/routes/positionRouter.js'
 import SchedulesRouter from './src/routes/scheduleRouter.js'
+import AttendanceRouter from './src/routes/attendanceRouter.js'
+import DeductionRouter from './src/routes/deductionRouter.js'
+import AdvanceRouter from './src/routes/addvanceRouter'
 
 
 dotenv.config()
@@ -29,6 +32,9 @@ app.get('/health',(req,res)=>{
 app.use('/api',SchedulesRouter)
 app.use('/api',userRouter),
 app.use('/api',positionRouter)
+app.use('/api',AttendanceRouter)
+app.use('/api',DeductionRouter)
+app.use('/api',AdvanceRouter)
 
 
 app.listen(port, ()=>{

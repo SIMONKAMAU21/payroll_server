@@ -39,10 +39,10 @@ export const addPositionServices = async (newPosition) => {
   
 
 
-  export const updatepositionServices = async (ID, updatedpositionData) => {
+  export const updatepositionServices = async (PositionID, updatedpositionData) => {
     try {
       const position = await poolRequest()
-        .input('ID', sql.Int,ID)
+        .input('PositionID', sql.Int,PositionID)
         .input('Title', sql.VarChar, updatedpositionData.Title)
         .input('Basic_Salary', sql.VarChar, updatedpositionData.Basic_Salary)
     
@@ -50,7 +50,7 @@ export const addPositionServices = async (newPosition) => {
           UPDATE Positions SET
           Title = @Title,
           Basic_Salary = @Basic_Salary
-          WHERE ID = @ID
+          WHERE PositionID = @PositionID
         `);
   
       return position.rowsAffected[0] > 0;
@@ -58,11 +58,11 @@ export const addPositionServices = async (newPosition) => {
       throw new Error("Failed to update position: " + error.message);
     }
   };
-  export const deletepositionServices = async (ID) => {
+  export const deletepositionServices = async (PositionID) => {
     try {
       const position = await poolRequest()
-        .input('ID', sql.Int, ID)
-        .query(`DELETE FROM Positions WHERE ID = @ID`);
+        .input('PositionID', sql.Int, PositionID)
+        .query(`DELETE FROM Positions WHERE PositionID = @PositionID`);
   
       return position.rowsAffected[0] > 0;
     } catch (error) {

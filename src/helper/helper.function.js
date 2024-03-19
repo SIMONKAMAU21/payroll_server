@@ -1,3 +1,8 @@
+import bcrypt from 'bcrypt'
+export const hashPassword= async(Password)=>{
+    return await bcrypt.hash(Password,8);
+}
+
 export const sendServerError=(res,message)=>{
     return res.status(500).json({message:message})
 }
