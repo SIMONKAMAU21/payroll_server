@@ -1,9 +1,32 @@
 import dotenv from 'dotenv';
-import { getAllUserServices, getUserByEmailService, addUserServices, updateUserServices, deleteUserServices, checkEmailExists } from '../services/userService.js';
+import { getAllUserServices, getUserByEmailService, addUserServices, updateUserServices, deleteUserServices, checkEmailExists, getUserByIdService } from '../services/userService.js';
 import { hashPassword, sendBadRequest, sendCreated, sendDeleteSuccess, sendNotFound, sendServerError, sendSuccess } from '../helper/helper.function.js'
 import Jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt'
 import nodemailer from 'nodemailer'
+import multer from 'multer';
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/');
+  },
+  filename: function (req, file, cb) {
+    cb(null, new Date().toISOString() + '-' + file.originalname);
+  }
+});
+
+const fileFilter = (req, file, cb) => {
+  if (file.mimetype.startsWith('image/')) {
+    cb(null, true);
+  } else {
+    cb(new Error('Only images are allowed'), false);
+  }
+};
+
+const upload = multer({ storage: storage, fileFilter: fileFilter });
+
+export { upload };
+
 
 dotenv.config();
 
@@ -23,8 +46,11 @@ export const getAllUserController = async (req, res) => {
 export const getUserByEmail = async (req, res) => {
   try {
     const userEmail = {
-      Email: req.body.Email
+      Email: req.params.Email
+
     };
+
+    
     const user = await getUserByEmailService(userEmail.Email);
     return res.status(200).json(user);
   } catch (error) {
@@ -32,8 +58,18 @@ export const getUserByEmail = async (req, res) => {
   }
 };
 
-
-
+export const getUserById =async(req,res)=>{
+try {
+  const userID={
+    ID:req.params.ID
+  };
+  const user = await getUserByIdService(userID.ID)
+  return res.status(200).json(user)
+} catch (error) {
+  error.message
+}
+}
+ 
 
 
 export const loginUser = async (req, res) => {
@@ -42,13 +78,18 @@ export const loginUser = async (req, res) => {
       Email: req.body.Email,
       Password: req.body.Password
     };
-
+    console.log(req.body)
     const user = await getUserByEmailService(userDetails.Email);
+
+
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    const passwordMatch = await bcrypt.compare(userDetails.Password, user.Password);
+    const passwordMatch = await bcrypt.compare(req.body.Password, user.Password);
+    console.log("passwor match is ", passwordMatch);
+    console.log("passwor match is ", typeof (passwordMatch));
+
     if (!passwordMatch) {
       return res.status(401).json({ message: 'Invalid password' });
     }
@@ -63,7 +104,6 @@ export const loginUser = async (req, res) => {
 
 
 
-
 const sendEmail = async (user) => {
   let transporter = nodemailer.createTransport({
     service: 'Gmail',
@@ -73,7 +113,7 @@ const sendEmail = async (user) => {
     }
   });
 
-  const mailOptions ={
+  const mailOptions = {
     from: 'simogatuma21@gmail.com',
     to: user.Email,
     subject: 'Registration Successful',
@@ -96,40 +136,51 @@ const sendEmail = async (user) => {
 
 
 export const addUser = async (req, res) => {
-  const { Firstname, Lastname, Address, BirthDate, ContactInfo, Admin, Position, Schedule, PhotoURL, Email, Password } = req.body;
+  const { Firstname, Lastname, Address, BirthDate, ContactInfo, PhotoURL, Position, Schedule, Email, Password } = req.body;
   try {
     const existingUser = await checkEmailExists(Email);
     if (existingUser) {
       return sendBadRequest(res, 'User already exists with this email');
     }
 
-    const newUser = {
-      Firstname,
-      Lastname,
-      Address,
-      BirthDate,
-      ContactInfo,
-      Admin,
-      Position,
-      Schedule,
-      PhotoURL,
-      Email,
-      Password:await hashPassword(Password)
-    };
+    upload.single('PhotoURL')(req, res, async (err) => {
+      if (err) {
+        return sendBadRequest(res, err.message);
+      }
+      else {
 
-    const response = await addUserServices(newUser);
-    console.log(response)
-    if (response.rowsAffected > 0) {
-      await sendEmail(newUser);
-      sendCreated(res, 'Employee created successfully');
-    } else {
-      sendServerError(res, 'Failed to create employee');
-      console.log(response)
-    }
+
+      }
+      const Admin = 0
+      const newUser = {
+        Firstname,
+        Lastname,
+        Address,
+        BirthDate,
+        ContactInfo,
+        Admin,
+        Position,
+        Schedule,
+        PhotoURL,
+        Email,
+        Password: await hashPassword(Password)
+      };
+
+      const response = await addUserServices(newUser);
+
+      if (response.rowsAffected > 0) {
+        await sendEmail(newUser);
+        sendCreated(res, 'Employee created successfully');
+      } else {
+        sendServerError(res, 'Failed to create employee');
+      }
+    });
+  
   } catch (error) {
     sendServerError(res, error.message);
   }
 };
+
 
 
 

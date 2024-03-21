@@ -1,9 +1,7 @@
 import { poolRequest } from "../utils/dbConnect.js";
 import dotenv from 'dotenv';
 import sql from 'mssql';
-import Jwt from "jsonwebtoken";
-import bcrypt from 'bcrypt'
-import { response } from "express";
+
 
 dotenv.config()
 ////getting all users///////////////////////////////
@@ -17,40 +15,42 @@ export const getAllUserServices = async () => {
 };
 ////////getting a user by email////////////
 
-
-export const getUserByEmailService = async (Email, Password) => {
+export const getUserByEmailService = async (Email) => {
   try {
     const user = await poolRequest()
       .input('Email', sql.VarChar, Email)
       .query("SELECT * FROM Employees WHERE Email=@Email");
-
+      
     if (user.recordset.length === 0) {
       throw new Error('User not found');
-    } else {
-      const hashedPasswordFromDB = user.recordset[0].Password; 
-      const passwordMatch = await bcrypt.compare(Password, hashedPasswordFromDB);
-      if (!passwordMatch) {
-        throw new Error('Wrong credentials');
-      }
     }
 
-    const token = Jwt.sign(
-      {
-        Email: user.recordset[0].Email,
-        Firstname: user.recordset[0].Firstname,
-        Lastname: user.recordset[0].Lastname
-      },
-      process.env.JWT_SECRET,
-      { expiresIn: '12h' }
-    );
-
-    return { user: user.recordset[0], token: `JWT ${token}` };
+    return user.recordset[0]; // Return user details
   } catch (error) {
-    console.log(response.message)
     throw new Error('Could not fetch user by email: ' + error.message);
   }
 };
 
+
+export const getUserByIdService = async (userID) => {
+    try {
+        const user = await poolRequest()
+            .input('ID', sql.Int, userID)
+            .query(`SELECT  Employees.*,Attendance.*,Schedules.*
+            FROM Employees
+            JOIN Attendance   ON Attendance.EmployeeID= Employees.ID
+            JOIN Schedules ON Schedules.EmployeeID =Employees.ID WHERE Employees.ID=@ID`);
+
+        if (user.recordset.length === 0) {
+            throw new Error('User not found');
+        }
+
+        // Assuming you want to return the user if found
+        return user.recordset[0];
+    } catch (error) {
+        throw new Error('Could not fetch user by ID: ' + error.message);
+    }
+};
 
 
 export const checkEmailExists = async (Email) => {

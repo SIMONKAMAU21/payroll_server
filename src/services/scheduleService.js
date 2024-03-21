@@ -6,27 +6,37 @@ import sql  from "mssql";
 
 
 export const getAllSchedulesServices = async () => {
-    try {
-      const result = await poolRequest().query('SELECT * FROM Schedules');
-      return result.recordset;
-    } catch (error) {
-      throw new Error('Could not fetch all Schedules: ' + error.message);
-    }
-  };
+  try {
+    const result = await poolRequest().query(`
+      SELECT S.*, E.Firstname, E.Lastname, E.Position  -- Include additional employee details as needed
+      FROM Schedules S
+      INNER JOIN Employees E ON E.ID = S.EmployeeID
+    `);
+    return result.recordset;
+  } catch (error) {
+    throw new Error('Could not fetch all Schedules: ' + error.message);
+  }
+};
 
-export const addScheduleServices = async (newSchedule) => {
+
+
+  export const addScheduleServices = async (EmployeeID, newSchedule) => {
     try {
-      const result= await poolRequest()
+      const result = await poolRequest()
+        .input('EmployeeID', sql.Int, EmployeeID)
         .input('Schedules_name', sql.VarChar, newSchedule.Schedules_name)
         .input('StartTime', sql.Time, newSchedule.StartTime)
         .input('EndTime', sql.Time, newSchedule.EndTime)
-        .query(`INSERT INTO Schedules (Schedules_name,StartTime,EndTime) VALUES(@Schedules_name,@StartTime,@EndTime)`
-        )
-      return result
+        .query(`
+          INSERT INTO Schedules (EmployeeID, Schedules_name, StartTime, EndTime) 
+          VALUES (@EmployeeID, @Schedules_name, @StartTime, @EndTime)
+        `);
+      return result;
     } catch (error) {
-      return error.message
+      return error.message;
     }
-  }
+  };
+  
   export const checkSchedulesExists = async (Schedules_name) => {
     try {
       const result = await poolRequest()

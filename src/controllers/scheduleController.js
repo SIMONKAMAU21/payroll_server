@@ -15,13 +15,13 @@ export const getAllSchedulesController = async (req, res) => {
     }
   };
 
-export const addSchedules = async (req, res) => {
-    const { Schedules_name, StartTime,EndTime
-    } = req.body;
+  export const addSchedules = async (req, res) => {
+    const { EmployeeID, Schedules_name, StartTime, EndTime } = req.body; 
     try {
-        const existingSchedules = await checkSchedulesExists(Schedules_name);
+        const existingSchedules = await checkSchedulesExists(Schedules_name)
+      
         if (existingSchedules) {
-            return sendBadRequest(res, 'Schedules arledy exists');
+            return sendBadRequest(res, 'Schedules already exists');
         }
 
         const newSchedules = {
@@ -29,7 +29,7 @@ export const addSchedules = async (req, res) => {
             StartTime,
             EndTime,
         };
-        const response = await addScheduleServices(newSchedules);
+        const response = await addScheduleServices(EmployeeID, newSchedules);
         if (response.rowsAffected > 0) {
             sendSuccess(res, 'Schedules created successfully');
         } else {

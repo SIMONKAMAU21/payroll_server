@@ -1,21 +1,23 @@
 import { response } from "express";
 import { sendBadRequest, sendCreated, sendDeleteSuccess, sendNotFound, sendServerError, sendSuccess } from "../helper/helper.function.js";
-import { addAttendanceServices, deleteAttendanceServices, getAllAttendanceServices, updateAttendanceServices } from "../services/attendanceServices.js";
+import { addAttendanceServices, deleteAttendanceServices, getAllAttendanceByEmployeeId, getAllAttendanceServices, recordTimeInServices, updateAttendanceServices } from "../services/attendanceServices.js";
+
 
 
 export const addAttendance = async (req, res) => {
-    const { Date, TimeIn,TimeOut
+    const { EmployeeID, Date, TimeIn,TimeOut
     } = req.body;
     try {       
         const newAttendance = {
             Date,
             TimeIn,
-            TimeOut
+            TimeOut,
+         
         };
-        const response = await addAttendanceServices(newAttendance);
-        console.log(response)
-        if (response.rowsAffected > 0) {
-            sendCreated(res, 'Attendance created successfully');
+
+        const insertedId = await addAttendanceServices(EmployeeID,newAttendance);
+        if (insertedId) {
+            sendCreated(res,{ID:insertedId,message:'clocked in'});
         } else {
             sendServerError(res, 'Failed to create Attendance');
         }
@@ -67,3 +69,21 @@ export const updateAttendance = async (req, res) => {
       sendServerError(res, error.message);
     }
   };
+
+
+
+ export const getAllAttendanceByEmployeeIdController = async (req, res) => {
+    try {
+        const { employeeId } = req.params; 
+        const attendanceRecords = await getAllAttendanceByEmployeeId(employeeId);
+        
+        if (attendanceRecords.length === 0) {
+            return res.status(404).json({ message: 'No attendance records found for the provided employee ID.' });
+        }
+
+        res.status(200).json({ attendanceRecords });
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching attendance records: ' + error.message });
+    }
+};
+
