@@ -15,9 +15,9 @@ export const getAllpositionServices = async () => {
 export const addPositionServices = async (newPosition) => {
     try {
       const result= await poolRequest()
-        .input('Title', sql.VarChar, newPosition.Title)
+        .input('Position', sql.VarChar, newPosition.Position)
         .input('Basic_Salary', sql.Int, newPosition.Basic_Salary)
-        .query(`INSERT INTO Positions (Title,Basic_Salary) VALUES(@Title,@Basic_Salary)`
+        .query(`INSERT INTO Positions (Position,Basic_Salary) VALUES(@Position,@Basic_Salary)`
         )
       return result
     } catch (error) {
@@ -25,11 +25,11 @@ export const addPositionServices = async (newPosition) => {
     }
   }
 
-  export const checkPositionExists = async (Title) => {
+  export const checkPositionExists = async (Position) => {
     try {
       const result = await poolRequest()
-        .input('Title', sql.VarChar, Title)
-        .query('SELECT * FROM Positions WHERE Title = @Title');
+        .input('Position', sql.VarChar, Position)
+        .query('SELECT * FROM Positions WHERE Position = @Position');
   
       return result.recordset.length > 0;
     } catch (error) {
@@ -43,12 +43,12 @@ export const addPositionServices = async (newPosition) => {
     try {
       const position = await poolRequest()
         .input('PositionID', sql.Int,PositionID)
-        .input('Title', sql.VarChar, updatedpositionData.Title)
+        .input('Position', sql.VarChar, updatedpositionData.Position)
         .input('Basic_Salary', sql.VarChar, updatedpositionData.Basic_Salary)
     
         .query(`
           UPDATE Positions SET
-          Title = @Title,
+          Position = @Position,
           Basic_Salary = @Basic_Salary
           WHERE PositionID = @PositionID
         `);

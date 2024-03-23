@@ -39,6 +39,7 @@ export const addAttendanceServices = async (EmployeeID, newAttendance) => {
 
   export const updateAttendanceServices = async (ID, updatedAttendanceData) => {
     try {
+      console.log("updated dta is ",updateAttendanceServices);
       const Attendance = await poolRequest()
         .input('ID', sql.Int,ID)
         .input('TimeOut', sql.DateTime, updatedAttendanceData.TimeOut)

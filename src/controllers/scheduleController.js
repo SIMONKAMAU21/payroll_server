@@ -9,6 +9,7 @@ export const getAllSchedulesController = async (req, res) => {
         sendNotFound(res, "no shedules")
       } else {
         res.status(200).send(data)
+        console.log('response', response)
       }
     } catch (error) {
       return error.message
@@ -16,24 +17,25 @@ export const getAllSchedulesController = async (req, res) => {
   };
 
   export const addSchedules = async (req, res) => {
-    const { EmployeeID, Schedules_name, StartTime, EndTime } = req.body; 
+    const { EmployeeID, Days, StartTime, EndTime } = req.body; 
     try {
-        const existingSchedules = await checkSchedulesExists(Schedules_name)
+        const existingSchedules = await checkSchedulesExists(EmployeeID)
       
         if (existingSchedules) {
-            return sendBadRequest(res, 'Schedules already exists');
+            return sendNotFound(res, 'Schedule already exists');
         }
 
         const newSchedules = {
-            Schedules_name,
+          Days,
             StartTime,
             EndTime,
         };
         const response = await addScheduleServices(EmployeeID, newSchedules);
         if (response.rowsAffected > 0) {
-            sendSuccess(res, 'Schedules created successfully');
+            sendCreated(res, 'Schedules Added successfully');
         } else {
-            sendBadRequest(res, 'Failed to create Schedules');
+          console.log('response', response)
+            sendBadRequest(res, 'Failed to add Schedules');
         }
     } catch (error) {
         sendServerError(res, error.message);
@@ -61,6 +63,8 @@ export const deleteSchedules = async (req, res) => {
       const success = await updateSchedulesServices(ID, updatedSchedulesData);
       if (success) {
         sendSuccess(res, 'Schedules updated successfully');
+        checkSchedulesExists;
+        console.log('updatedShedulesData', updatedSchedulesData)
       } else {
         sendNotFound(res, 'Schedules not found');
       }

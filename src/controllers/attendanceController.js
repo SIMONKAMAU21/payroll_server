@@ -48,7 +48,7 @@ export const updateAttendance = async (req, res) => {
     try {
       const success = await updateAttendanceServices(ID, updatedAttendanceData);
       if (success) {
-        sendSuccess(res, 'Attendance updated successfully');
+        sendSuccess(res, 'clocked out');
       } else {
         sendNotFound(res, 'Attendance not found');
       }

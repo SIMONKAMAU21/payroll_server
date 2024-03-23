@@ -15,16 +15,16 @@ export const getAllpositionController = async (req, res) => {
   };
 
 export const addPosition = async (req, res) => {
-    const { Title, Basic_Salary
+    const { Position, Basic_Salary
     } = req.body;
     try {
-        const existingPosition = await checkPositionExists(Title);
+        const existingPosition = await checkPositionExists(Position);
         if (existingPosition) {
             return sendBadRequest(res, 'position arledy exists');
         }
 
         const newPosition = {
-            Title,
+            Position,
             Basic_Salary
         };
         const response = await addPositionServices(newPosition);

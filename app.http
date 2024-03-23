@@ -30,34 +30,38 @@ Content-Type: application/json
     "Firstname":"Robinson",
     "Lastname":"Ngecu",
     "Address":"Nyeri",
-    "Position":"Manager",
+    "PositionID":"6",
+    "Gender":"Male",
     "Schedule":"Morning shift",
     "BirthDate":"1990-01-12",
     "ContactInfo":"0705957078",
-    "Admin":"0",
+    "Admin":"1",
     "PhotoURL":"https://wallpaperaccess.com/full/1347872.jpg",
-    "Email":"isacckilomok5@gmail.com",
+    "Email":"isacckilomok6@gmail.com",
     "Password":"simon"
 }
 
 ###UPDATING USER BY ID
-PUT http://localhost:8000/api/users/update/5
+PUT http://localhost:8000/api/users/update/2
 Content-Type: application/json
 
 {
-    "Firstname":"kimani",
-    "Lastname":"kimani",
+    "Firstname":"Robinson",
+    "Lastname":"Ngecu",
     "Address":"Nyeri",
+    "PositionID":"6",
+    "Gender":"Male",
+    "Schedule":"Morning shift",
     "BirthDate":"1990-01-12",
-    "ContactInfo":"0759717794",
+    "ContactInfo":"0705957078",
+    "Admin":"1",
     "PhotoURL":"https://wallpaperaccess.com/full/1347872.jpg",
-    "Email":"simon@gmail.com",
-  "Password":"leah "
-
-  
+    "Email":"simogatuma21@gmail.com",
+    "Password":"simon"
 }
+
 ### DELETING USERS
-DELETE http://localhost:8000/api/users/delete/8
+DELETE http://localhost:8000/api/users/delete/1
 Content-Type: application/json
 
 
@@ -69,15 +73,15 @@ POST http://localhost:8000/api/positions/register
 Content-Type: application/json
 
 {
-    "Title":"lofware",
+    "Position":"software",
     "Basic_Salary":"60000"
 }
 ### updating a position
-PUT http://localhost:8000/api/positions/update/4
+PUT http://localhost:8000/api/positions/update/2
 Content-Type: application/json
 
 {
-    "Title":"Sofware",
+    "Position":"Sofware",
     "Basic_Salary":"70000"
 }
 
@@ -97,29 +101,32 @@ POST http://localhost:8000/api/Schedules/register
 Content-Type: application/json
 
 {
-    "Schedules_name": "Night Shiftr",
+    "Days": "1",
     "StartTime": "2024-03-18 09:00:00", 
-    "EmployeeID":"58",
+    "EmployeeID":"6",
     "EndTime": "2024-03-18 00:00:00" 
 }
 
 ### getting all shedules
 GET http://localhost:8000/api/Schedules
 
+
 ### deleting schedules
-DELETE http://localhost:8000/api/Schedules/delete/7
+DELETE http://localhost:8000/api/Schedules/delete/4
 Content-Type: application/json
 
 ###UPDATING SCHEDULE
-PUT http://localhost:8000/api/Schedules/update/3
+PUT http://localhost:8000/api/Schedules/update/2
 Content-Type: application/json
 
 
 {
-    "Schedules_name": "Night Shift",
+    "Days": "7",
     "StartTime": "2024-03-18 09:00:00", 
+    "EmployeeID":"6",
     "EndTime": "2024-03-18 00:00:00" 
 }
+
 
 ### creating a new attendance
 POST http://localhost:8000/api/Attendance/record
@@ -140,7 +147,7 @@ GET http://localhost:8000/api/Attendance
 GET http://localhost:8000/api/Attendance/5
 
 ### update attendance
-PUT  http://localhost:8000/api/Attendance/update/12
+PUT  http://localhost:8000/api/Attendance/update/25
 Content-Type: application/json
 
 {
@@ -148,7 +155,7 @@ Content-Type: application/json
 }
 
 ### delete attendance
-DELETE http://localhost:8000/api/Attendance/delete/21
+DELETE http://localhost:8000/api/Attendance/delete/2
 Content-Type: application/json
 
 

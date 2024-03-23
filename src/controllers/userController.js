@@ -136,7 +136,7 @@ const sendEmail = async (user) => {
 
 
 export const addUser = async (req, res) => {
-  const { Firstname, Lastname, Address, BirthDate, ContactInfo, PhotoURL, Position, Schedule, Email, Password } = req.body;
+  const { Firstname, Lastname,Gender, Address, BirthDate, ContactInfo, PhotoURL, PositionID, Schedule, Email, Password } = req.body;
   try {
     const existingUser = await checkEmailExists(Email);
     if (existingUser) {
@@ -149,17 +149,17 @@ export const addUser = async (req, res) => {
       }
       else {
 
-
       }
       const Admin = 0
       const newUser = {
         Firstname,
         Lastname,
+        Gender,
         Address,
         BirthDate,
         ContactInfo,
         Admin,
-        Position,
+        PositionID,
         Schedule,
         PhotoURL,
         Email,
@@ -168,6 +168,7 @@ export const addUser = async (req, res) => {
 
       const response = await addUserServices(newUser);
 
+      console.log('response', response)
       if (response.rowsAffected > 0) {
         await sendEmail(newUser);
         sendCreated(res, 'Employee created successfully');
