@@ -4,7 +4,6 @@ import sql from 'mssql';
 
 
 dotenv.config()
-////getting all users///////////////////////////////
 export const getAllUserServices = async () => {
   try {
     const result = await poolRequest().query('SELECT * FROM Employees');
@@ -13,7 +12,6 @@ export const getAllUserServices = async () => {
     throw new Error('Could not fetch all users: ' + error.message);
   }
 };
-////////getting a user by email////////////
 
 export const getUserByEmailService = async (Email) => {
   try {
@@ -25,7 +23,7 @@ export const getUserByEmailService = async (Email) => {
       throw new Error('User not found');
     }
 
-    return user.recordset[0]; // Return user details
+    return user.recordset[0]; 
   } catch (error) {
     throw new Error('Could not fetch user by email: ' + error.message);
   }
@@ -45,7 +43,6 @@ export const getUserByIdService = async (userID) => {
             throw new Error('User not found');
         }
 
-        // Assuming you want to return the user if found
         return user.recordset[0];
     } catch (error) {
         throw new Error('Could not fetch user by ID: ' + error.message);

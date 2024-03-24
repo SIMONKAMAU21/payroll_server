@@ -100,10 +100,10 @@ export const getUserPayrollDetails = async (EmployeeID) => {
                     e.ID AS EmployeeID,
                     e.Firstname,
                     e.Lastname,
-                    p.GrossPay,
+                    ISNULL(SUM(p.GrossPay), 0) AS GrossPay,
                     ISNULL(SUM(d.Amount), 0) AS TotalDeductions,
                     ISNULL(SUM(ac.Amount), 0) AS AdvanceCash,
-                    p.GrossPay - ISNULL(SUM(d.Amount), 0) - ISNULL(SUM(ac.Amount), 0) AS NetPay
+                    ISNULL(SUM(p.GrossPay), 0) - ISNULL(SUM(d.Amount), 0) - ISNULL(SUM(ac.Amount), 0) AS NetPay
                 FROM 
                     Employees e
                 LEFT JOIN 
@@ -115,7 +115,7 @@ export const getUserPayrollDetails = async (EmployeeID) => {
                 WHERE 
                     e.ID = @EmployeeID
                 GROUP BY 
-                    e.ID, e.Firstname, e.Lastname, p.GrossPay;
+                    e.ID, e.Firstname, e.Lastname;
             `);
         
         return result.recordset[0];
@@ -123,6 +123,7 @@ export const getUserPayrollDetails = async (EmployeeID) => {
         throw error;
     }
 };
+
 
 export const getAllPayrollsServices = async () => {
     try {

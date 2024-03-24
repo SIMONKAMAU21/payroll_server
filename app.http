@@ -165,7 +165,7 @@ POST http://localhost:8000/api/Deduction/register
 Content-Type: application/json
 
 {
-    "Description": "Nhif",
+    "Description": "Nhi",
     "Amount": "3339.00",
     "EmployeeID":"14"
 }
@@ -186,7 +186,7 @@ Content-Type: application/json
 DELETE http://localhost:8000/api/Deduction/delete/1
 
 ###gettind deduction by id
-GET http://localhost:8000/api/Deduction/employee/12
+GET http://localhost:8000/api/Deduction/employee/14
 
 
 
@@ -250,7 +250,7 @@ POST http://localhost:8000/api/Payroll/register
 Content-Type:application/json
 
 {
-    "EmployeeID":"4"
+    "EmployeeID":"14"
 }
 
 ###
@@ -259,5 +259,3 @@ GET http://localhost:8000/api/Payrolls
 ###
 GET http://localhost:8000/api/Payrolls/14
 
-####
-# DELETE http://localhost:8000/api/PayrollS/delete/1

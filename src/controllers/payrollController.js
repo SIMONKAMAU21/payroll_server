@@ -33,21 +33,25 @@ export const addPayrollController = async (req, res) => {
 export const getAllPayrollsController = async (req, res) => {
     try {
         const allPayroll = await getAllPayrollsServices(); 
-        console.log('response', allPayroll);
-        return sendSuccess(res, allPayroll);
-    } catch (error) {
-        return sendNotFound(res, "No payroll found."); 
-    }
+        if (allPayroll.lenth === 0) {
+            sendNotFound(res, "no employee")
+          } else {
+            res.status(200).send(allPayroll)
+          }    } catch (error) {
+            return error.message
+        }
 };
 
 
 
-export const getUserPayrollDetailsController= async(req,res)=>{
+
+export const getUserPayrollDetailsController = async (req, res) => {
     try {
-        const userDetails= await getUserPayrollDetails(EmployeeID);
-        console.error ('userDetailes', userDetails)
-        return sendSuccess(res,userDetails)
+        const { EmployeeID } = req.params;
+        const payrollDetails = await getUserPayrollDetails(EmployeeID);
+       return sendSuccess(res,payrollDetails)
     } catch (error) {
-        sendNotFound(res,"no user")
+        console.error('Error fetching user payroll details:', error);
+        return res.status(500).json({ success: false, error: 'Internal Server Error' });
     }
-}
+};
