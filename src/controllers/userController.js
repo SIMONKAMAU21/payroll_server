@@ -78,7 +78,6 @@ export const loginUser = async (req, res) => {
       Email: req.body.Email,
       Password: req.body.Password
     };
-    console.log(req.body)
     const user = await getUserByEmailService(userDetails.Email);
 
 
@@ -87,8 +86,7 @@ export const loginUser = async (req, res) => {
     }
 
     const passwordMatch = await bcrypt.compare(req.body.Password, user.Password);
-    console.log("passwor match is ", passwordMatch);
-    console.log("passwor match is ", typeof (passwordMatch));
+
 
     if (!passwordMatch) {
       return res.status(401).json({ message: 'Invalid password' });
@@ -165,10 +163,7 @@ export const addUser = async (req, res) => {
         Email,
         Password: await hashPassword(Password)
       };
-
       const response = await addUserServices(newUser);
-
-      console.log('response', response)
       if (response.rowsAffected > 0) {
         await sendEmail(newUser);
         sendCreated(res, 'Employee created successfully');

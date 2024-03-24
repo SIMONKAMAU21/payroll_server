@@ -9,7 +9,6 @@ export const getAllSchedulesController = async (req, res) => {
         sendNotFound(res, "no shedules")
       } else {
         res.status(200).send(data)
-        console.log('response', response)
       }
     } catch (error) {
       return error.message
@@ -34,7 +33,6 @@ export const getAllSchedulesController = async (req, res) => {
         if (response.rowsAffected > 0) {
             sendCreated(res, 'Schedules Added successfully');
         } else {
-          console.log('response', response)
             sendBadRequest(res, 'Failed to add Schedules');
         }
     } catch (error) {
@@ -64,7 +62,6 @@ export const deleteSchedules = async (req, res) => {
       if (success) {
         sendSuccess(res, 'Schedules updated successfully');
         checkSchedulesExists;
-        console.log('updatedShedulesData', updatedSchedulesData)
       } else {
         sendNotFound(res, 'Schedules not found');
       }

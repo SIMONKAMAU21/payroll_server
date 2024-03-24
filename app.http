@@ -30,19 +30,19 @@ Content-Type: application/json
     "Firstname":"Robinson",
     "Lastname":"Ngecu",
     "Address":"Nyeri",
-    "PositionID":"6",
+    "PositionID":"4",
     "Gender":"Male",
     "Schedule":"Morning shift",
     "BirthDate":"1990-01-12",
     "ContactInfo":"0705957078",
     "Admin":"1",
     "PhotoURL":"https://wallpaperaccess.com/full/1347872.jpg",
-    "Email":"isacckilomok6@gmail.com",
+    "Email":"isacckilomok5@gmail.com",
     "Password":"simon"
 }
 
 ###UPDATING USER BY ID
-PUT http://localhost:8000/api/users/update/2
+PUT http://localhost:8000/api/users/update/12
 Content-Type: application/json
 
 {
@@ -61,7 +61,7 @@ Content-Type: application/json
 }
 
 ### DELETING USERS
-DELETE http://localhost:8000/api/users/delete/1
+DELETE http://localhost:8000/api/users/delete/12
 Content-Type: application/json
 
 
@@ -103,7 +103,7 @@ Content-Type: application/json
 {
     "Days": "1",
     "StartTime": "2024-03-18 09:00:00", 
-    "EmployeeID":"6",
+    "EmployeeID":"10",
     "EndTime": "2024-03-18 00:00:00" 
 }
 
@@ -165,8 +165,9 @@ POST http://localhost:8000/api/Deduction/register
 Content-Type: application/json
 
 {
-    "Description": "added a new description",
-    "Amount": "50000.00"
+    "Description": "Nhif",
+    "Amount": "3339.00",
+    "EmployeeID":"14"
 }
 
 ### getting all deductions
@@ -184,20 +185,26 @@ Content-Type: application/json
 ### deleting deduction
 DELETE http://localhost:8000/api/Deduction/delete/1
 
+###gettind deduction by id
+GET http://localhost:8000/api/Deduction/employee/12
+
+
+
 ### creating advanced cash
 POST http://localhost:8000/api/Advance/register
 Content-Type: application/json
 
 {
    "Date": "2024-03-18",
-    "Amount": "50000.00"
+    "Amount": "299.00",
+    "EmployeeID":"14"
 }
 
 ### getting all advance
 GET http://localhost:8000/api/Advance
 
 ### deleting advance cash
-DELETE http://localhost:8000/api/Advance/delete/1
+DELETE http://localhost:8000/api/Advance/delete/4
 
 ### updating advance cash
 PUT http://localhost:8000/api/Advance/update/2
@@ -237,3 +244,20 @@ Content-Type: application/json
     "Minutes": "69",
     "Rate": "50000.00"
 }
+
+###
+POST http://localhost:8000/api/Payroll/register
+Content-Type:application/json
+
+{
+    "EmployeeID":"4"
+}
+
+###
+GET http://localhost:8000/api/Payrolls
+
+###
+GET http://localhost:8000/api/Payrolls/14
+
+####
+# DELETE http://localhost:8000/api/PayrollS/delete/1

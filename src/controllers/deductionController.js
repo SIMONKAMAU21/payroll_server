@@ -1,9 +1,9 @@
 import { sendBadRequest, sendCreated, sendDeleteSuccess, sendNotFound, sendServerError, sendSuccess } from "../helper/helper.function.js";
-import { addDeductionServices, checkDescriptionExists, deleteDeductionServices, getAllDeductionServices, updateDeductionServices } from "../services/deductionServices.js";
+import { addDeductionServices, checkDescriptionExists, deleteDeductionServices, getAllDeductionServices, getDeductionsByEmployeeIdServices, updateDeductionServices } from "../services/deductionServices.js";
 
 
 export const addDeduction = async (req, res) => {
-    const { Description, Amount
+    const { Description, Amount,EmployeeID
     } = req.body;
 
 
@@ -15,9 +15,9 @@ export const addDeduction = async (req, res) => {
         const newDeduction = {
             Description,
             Amount,
+            EmployeeID,
         };
         const response = await addDeductionServices(newDeduction);
-        console.log(response)
         if (response.rowsAffected > 0) {
             sendCreated(res, 'Deduction created successfully');
         } else {
@@ -70,3 +70,16 @@ export const getAllDeductionController = async (req, res) => {
       sendServerError(res, error.message);
     }
   };
+
+
+  export const getDeductionsByEmployeeIdController = async (req, res) => {
+    try {
+        const { ID } = req.params;
+
+        const deductions = await getDeductionsByEmployeeIdServices(parseInt(ID));
+
+        sendSuccess(res, deductions);
+    } catch (error) {
+        sendBadRequest(res, error.message);
+    }
+};

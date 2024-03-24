@@ -3,21 +3,15 @@ import { addAdvanceServices, deleteAdvanceServices, getAllAdvanceServices, updat
 
 
 export const addAdvance = async (req, res) => {
-    const { Date, Amount
+    const { Date, Amount,EmployeeID
     } = req.body;
-
-
-    try {  
-        // const existingAdvance  =await checkDescriptionExists(Description); 
-        // if(existingAdvance){
-        //     return sendBadRequest (res,'Advance alredy exists')
-        // }  
+    try {   
         const newAdvance = {
             Date,
             Amount,
+            EmployeeID
         };
         const response = await addAdvanceServices(newAdvance);
-        console.log(response)
         if (response.rowsAffected > 0) {
             sendCreated(res, 'Advance created successfully');
         } else {

@@ -3,7 +3,9 @@ import sql from 'mssql';
 
 export const getAllpositionServices = async () => {
     try {
-      const result = await poolRequest().query('SELECT * FROM Positions');
+      const result = await poolRequest().query(`	SELECT Positions.*,Employees.*
+			FROM Employees
+			Join Positions ON Positions.PositionID= Employees.PositionID`);
       return result.recordset;
     } catch (error) {
       throw new Error('Could not fetch all positions: ' + error.message);

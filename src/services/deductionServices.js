@@ -7,7 +7,8 @@ export const addDeductionServices = async (newDeduction) => {
         const result = await poolRequest()
             .input('Description', sql.VarChar, newDeduction.Description)
             .input('Amount', sql.Decimal, newDeduction.Amount)
-            .query(`INSERT INTO Deductions (Description,Amount) VALUES(@Description,@Amount)`
+            .input('EmployeeID', sql.Int, newDeduction.EmployeeID)
+            .query(`INSERT INTO Deductions (Description,Amount,EmployeeID) VALUES(@Description,@Amount,@EmployeeID)`
             )
         return result
     } catch (error) {
@@ -67,3 +68,19 @@ export const deleteDeductionServices = async (DeductionID) => {
     }
   };
   
+
+  export const getDeductionsByEmployeeIdServices = async (ID) => {
+    try {
+        const result = await poolRequest()
+            .input('EmployeeID', sql.Int, ID)
+            .query(`
+                SELECT d.*
+                FROM Deductions d
+                INNER JOIN Payroll p ON d.DeductionID = p.DeductionID
+                WHERE p.EmployeeID = @EmployeeID
+            `);
+        return result.recordset;
+    } catch (error) {
+        throw error;
+    }
+};

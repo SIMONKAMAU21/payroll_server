@@ -6,8 +6,9 @@ export const addAdvanceServices = async (newAdvance) => {
     try {
         const result = await poolRequest()
             .input('Date', sql.DateTime, newAdvance.Date)
+            .input('EmployeeID', sql.Int, newAdvance.EmployeeID)
             .input('Amount', sql.Decimal, newAdvance.Amount)
-            .query(`INSERT INTO AdvanceCash (Date,Amount) VALUES(@Date,@Amount)`
+            .query(`INSERT INTO AdvanceCash (Date,Amount,EmployeeID) VALUES(@Date,@Amount,@EmployeeID)`
             )
         return result
     } catch (error) {
