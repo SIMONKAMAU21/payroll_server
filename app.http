@@ -42,20 +42,19 @@ Content-Type: application/json
 }
 
 ###UPDATING USER BY ID
-PUT http://localhost:8000/api/users/update/1
+PUT http://localhost:8000/api/users/update/7
 Content-Type: application/json
 
 {
-    "Firstname":"Robinson",
-    "Lastname":"Ngecu",
+    "Firstname":"simon",
+    "Lastname":"kamau",
     "Address":"Nyeri",
-    "PositionID":"1",
+    "PositionID":"2",
     "Gender":"Male",
-     "Admin":"1",
     "Schedule":"Morning shift",
     "BirthDate":"1990-01-12",
     "ContactInfo":"0705957078",
-    "PhotoURL":"https://wallpaperaccess.com/full/1347872.jpg",
+    "PhotoURL":"https://res.cloudinary.com/diyuy63ue/image/upload/v1712007641/pxysns9ctrpnxjzfb1jx.jpg",
     "Email":"simogatuma22@gmail.com",
     "Password":"simon"
 }
@@ -167,7 +166,7 @@ Content-Type: application/json
 {
     "Description": "Nhi",
     "Amount": "3339.00",
-    "EmployeeID":""
+    "EmployeeID":"7"
 }
 
 ### getting all deductions
@@ -183,10 +182,10 @@ Content-Type: application/json
     "Amount": "50000.00"
 }
 ### deleting deduction
-DELETE http://localhost:8000/api/Deduction/delete/1
+DELETE http://localhost:8000/api/Deduction/delete/8
 
 ###gettind deduction by id
-GET http://localhost:8000/api/Deduction/employee/14
+GET http://localhost:8000/api/Deduction/employee/7
 
 
 
@@ -257,5 +256,5 @@ Content-Type:application/json
 GET http://localhost:8000/api/Payrolls
 
 ###
-GET http://localhost:8000/api/Payrolls/4
+GET http://localhost:8000/api/Payrolls/7
 
