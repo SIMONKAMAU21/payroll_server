@@ -1,6 +1,6 @@
 
 ### Request
-GET http://localhost:8000/health
+GET http://localhost:3000/health
 
 ### getting all users
 GET http://localhost:8000/api/users
@@ -18,7 +18,7 @@ POST httP://localhost:8000/api/users/login
 Content-Type: application/json
 
 {
-    "Email":"isacckilomok2@gmail.com", 
+    "Email":"simogatuma22@gmail.com", 
     "Password":"simon"
 }
 
@@ -30,26 +30,7 @@ Content-Type: application/json
     "Firstname":"Robinson",
     "Lastname":"Ngecu",
     "Address":"Nyeri",
-    "PositionID":"4",
-    "Gender":"Male",
-    "Schedule":"Morning shift",
-    "BirthDate":"1990-01-12",
-    "ContactInfo":"0705957078",
-    "Admin":"1",
-    "PhotoURL":"https://wallpaperaccess.com/full/1347872.jpg",
-    "Email":"isacckilomok5@gmail.com",
-    "Password":"simon"
-}
-
-###UPDATING USER BY ID
-PUT http://localhost:8000/api/users/update/12
-Content-Type: application/json
-
-{
-    "Firstname":"Robinson",
-    "Lastname":"Ngecu",
-    "Address":"Nyeri",
-    "PositionID":"6",
+    "PositionID":"1",
     "Gender":"Male",
     "Schedule":"Morning shift",
     "BirthDate":"1990-01-12",
@@ -60,8 +41,27 @@ Content-Type: application/json
     "Password":"simon"
 }
 
+###UPDATING USER BY ID
+PUT http://localhost:8000/api/users/update/1
+Content-Type: application/json
+
+{
+    "Firstname":"Robinson",
+    "Lastname":"Ngecu",
+    "Address":"Nyeri",
+    "PositionID":"1",
+    "Gender":"Male",
+     "Admin":"1",
+    "Schedule":"Morning shift",
+    "BirthDate":"1990-01-12",
+    "ContactInfo":"0705957078",
+    "PhotoURL":"https://wallpaperaccess.com/full/1347872.jpg",
+    "Email":"simogatuma22@gmail.com",
+    "Password":"simon"
+}
+
 ### DELETING USERS
-DELETE http://localhost:8000/api/users/delete/12
+DELETE http://localhost:8000/api/users/delete/1
 Content-Type: application/json
 
 
@@ -103,7 +103,7 @@ Content-Type: application/json
 {
     "Days": "1",
     "StartTime": "2024-03-18 09:00:00", 
-    "EmployeeID":"10",
+    "EmployeeID":"2",
     "EndTime": "2024-03-18 00:00:00" 
 }
 
@@ -123,7 +123,7 @@ Content-Type: application/json
 {
     "Days": "7",
     "StartTime": "2024-03-18 09:00:00", 
-    "EmployeeID":"6",
+    "EmployeeID":"2",
     "EndTime": "2024-03-18 00:00:00" 
 }
 
@@ -134,7 +134,7 @@ Content-Type: application/json
 
 {
     "Date": "2024-03-18",
-    "EmployeeID": "58",
+    "EmployeeID": "2",
     "TimeIn": "2024-03-18T09:00:00" 
 }
 
@@ -147,7 +147,7 @@ GET http://localhost:8000/api/Attendance
 GET http://localhost:8000/api/Attendance/5
 
 ### update attendance
-PUT  http://localhost:8000/api/Attendance/update/25
+PUT  http://localhost:8000/api/Attendance/update/1
 Content-Type: application/json
 
 {
@@ -167,7 +167,7 @@ Content-Type: application/json
 {
     "Description": "Nhi",
     "Amount": "3339.00",
-    "EmployeeID":"14"
+    "EmployeeID":"2"
 }
 
 ### getting all deductions
@@ -197,7 +197,7 @@ Content-Type: application/json
 {
    "Date": "2024-03-18",
     "Amount": "299.00",
-    "EmployeeID":"14"
+    "EmployeeID":"2"
 }
 
 ### getting all advance
@@ -250,12 +250,12 @@ POST http://localhost:8000/api/Payroll/register
 Content-Type:application/json
 
 {
-    "EmployeeID":"14"
+    "EmployeeID":"2"
 }
 
 ###
 GET http://localhost:8000/api/Payrolls
 
 ###
-GET http://localhost:8000/api/Payrolls/14
+GET http://localhost:8000/api/Payrolls/2
 

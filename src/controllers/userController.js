@@ -92,7 +92,7 @@ export const loginUser = async (req, res) => {
       return res.status(401).json({ message: 'Invalid password' });
     }
 
-    const token = Jwt.sign({ Email: user.Email }, process.env.JWT_SECRET, { expiresIn: '12h' });
+    const token = Jwt.sign({ Email: user.Email }, "secret", { expiresIn: '12h' });
 
     return res.status(200).json({ user, token });
   } catch (error) {
@@ -107,7 +107,7 @@ const sendEmail = async (user) => {
     service: 'Gmail',
     auth: {
       user: 'simogatuma21@gmail.com',
-      pass: 'ykck fbzc jghz qjgg'
+      pass: 'fdgj bjjv lhtd qhng'
     }
   });
 
@@ -149,6 +149,8 @@ export const addUser = async (req, res) => {
 
       }
       const Admin = 0
+      const unhshedPassword=Password
+      const hashedPassword =await hashedPassword(Password)
       const newUser = {
         Firstname,
         Lastname,
@@ -161,11 +163,11 @@ export const addUser = async (req, res) => {
         Schedule,
         PhotoURL,
         Email,
-        Password: await hashPassword(Password)
+        Password: hashedPassword
       };
       const response = await addUserServices(newUser);
       if (response.rowsAffected > 0) {
-        await sendEmail(newUser);
+        await sendEmail(...{newUser,Password:unhshedPassword});
         sendCreated(res, 'Employee created successfully');
       } else {
         sendServerError(res, 'Failed to create employee');
@@ -174,9 +176,9 @@ export const addUser = async (req, res) => {
   
   } catch (error) {
     sendServerError(res, error.message);
+    console.log('error', error)
   }
 };
-
 
 
 
@@ -184,6 +186,10 @@ export const updateUser = async (req, res) => {
   const ID = req.params.ID;
   const updatedUserData = req.body;
   try {
+    if(updatedUserData.Password){
+      const hashedPassword =await bcrypt.hash(updatedUserData.Password,8);
+      updatedUserData.Password=hashedPassword
+    }
     const success = await updateUserServices(ID, updatedUserData);
     if (success) {
       sendSuccess(res, 'User updated successfully');

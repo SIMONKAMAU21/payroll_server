@@ -14,11 +14,8 @@ import PayrollRouter from './src/routes/PayrollRouter.js'
 
 
 dotenv.config()
-
-
-
 const app =express()
-const port = process.env.API_PORT || 3000
+const port = process.env.API_PORT || 8000
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

@@ -1,0 +1,11 @@
+{
+   "editor.fontSize": 8,
+   "window.zoomPerWindow": true,
+   "window.zoomLevel": 2,
+   "interactiveWindow.collapseCellInputCode": "fromEditor",
+   "interactiveWindow.alwaysScrollOnNewCell": false,
+   "workbench.localHistory.mergeWindow": 10,
+   "window.density.editorTabHeight": "compact",
+   "files.autoSave": "afterDelay",
+   "terminal.integrated.enableImages": true
+}
