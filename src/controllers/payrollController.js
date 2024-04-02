@@ -1,6 +1,6 @@
 
 import { response } from "express";
-import { sendBadRequest,  sendNotFound,  sendSuccess } from "../helper/helper.function.js";
+import { sendBadRequest,  sendNotFound,  sendServerError,  sendSuccess } from "../helper/helper.function.js";
 import {  addPayrollService, checkEmployeeExists, getAllPayrollsServices, getUserPayrollDetails } from "../services/payrollServices.js";
 
 
@@ -25,6 +25,7 @@ export const addPayrollController = async (req, res) => {
             return sendBadRequest(res, "Failed to generate payroll.");
         }
     } catch (error) {
+        console.log('error', error)
         return sendServerError(res, error.message); 
     }
 };
@@ -49,7 +50,7 @@ export const getUserPayrollDetailsController = async (req, res) => {
     try {
         const { EmployeeID } = req.params;
         const payrollDetails = await getUserPayrollDetails(EmployeeID);
-       return sendSuccess(res,payrollDetails)
+       res.status(200).send(payrollDetails)
     } catch (error) {
         console.error('Error fetching user payroll details:', error);
         return res.status(500).json({ success: false, error: 'Internal Server Error' });

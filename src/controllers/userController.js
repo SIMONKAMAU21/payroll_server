@@ -150,7 +150,7 @@ export const addUser = async (req, res) => {
       }
       const Admin = 0
       const unhshedPassword=Password
-      const hashedPassword =await hashedPassword(Password)
+      const hashedPassword =await hashPassword(Password)
       const newUser = {
         Firstname,
         Lastname,
@@ -167,7 +167,7 @@ export const addUser = async (req, res) => {
       };
       const response = await addUserServices(newUser);
       if (response.rowsAffected > 0) {
-        await sendEmail(...{newUser,Password:unhshedPassword});
+        await sendEmail({...newUser,Password:unhshedPassword});
         sendCreated(res, 'Employee created successfully');
       } else {
         sendServerError(res, 'Failed to create employee');
