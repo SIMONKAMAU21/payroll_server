@@ -1,11 +1,11 @@
 import { sendBadRequest, sendCreated, sendDeleteSuccess, sendNotFound, sendServerError, sendSuccess } from "../helper/helper.function.js";
-import { addPositionServices, checkPositionExists, deletepositionServices, getAllpositionServices, updatepositionServices } from "../services/positionServices.js";
+import { addPositionServices, checkPositionExists, deletepositionServices, getAllpositionByIdServices, getAllpositionServices, updatepositionServices } from "../services/positionServices.js";
 
 export const getAllpositionController = async (req, res) => {
     try {
       const data = await getAllpositionServices();
       if (data.lenth === 0) {
-        sendNotFound(res, "no employee")
+        sendNotFound(res, "No positions yet")
       } else {
         res.status(200).send(data)
       }
@@ -13,6 +13,20 @@ export const getAllpositionController = async (req, res) => {
       return error.message
     }
   };
+  
+export const getAllpositionByIdController = async (req, res) => {
+  const PositionID = req.params.PositionID
+  try {
+    const data = await getAllpositionByIdServices(PositionID);
+    if (data.lenth === 0) {
+      sendNotFound(res, "No Employee")
+    } else {
+      res.status(200).send(data)
+    }
+  } catch (error) {
+    return error.message
+  }
+};
 
 export const addPosition = async (req, res) => {
     const { Position, Basic_Salary

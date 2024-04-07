@@ -17,7 +17,10 @@ export const addAdvanceServices = async (newAdvance) => {
 }
 export const getAllAdvanceServices = async () => {
     try {
-        const result = await poolRequest().query('SELECT * FROM AdvanceCash');
+        const result = await poolRequest().query(`SELECT  AdvanceCash.*, Employees.*
+        FROM  AdvanceCash
+        INNER JOIN Employees ON AdvanceCash.EmployeeID = Employees.ID
+        `);
         return result.recordset;
     } catch (error) {
         throw new Error('Could not fetch all Advances: ' + error.message);

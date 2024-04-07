@@ -58,19 +58,16 @@ export const getUserByEmail = async (req, res) => {
   }
 };
 
-export const getUserById =async(req,res)=>{
-try {
-  const userID={
-    ID:req.params.ID
-  };
-  const user = await getUserByIdService(userID.ID)
-  return res.status(200).json(user)
-} catch (error) {
-  error.message
-}
-}
- 
 
+export const getUserByIdController= async(req,res)=>{
+  const userId=req.params.ID
+  try {
+    const user =await getUserByIdService(userId)
+    res.status(200).send(user)
+  } catch (error) {
+    res.error
+  }
+}
 
 export const loginUser = async (req, res) => {
   try {

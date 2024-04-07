@@ -18,12 +18,29 @@ export const addDeductionServices = async (newDeduction) => {
 
 export const getAllDeductionServices = async () => {
     try {
-        const result = await poolRequest().query('SELECT * FROM Deductions');
+        const result = await poolRequest().query(`SELECT  Deductions.*,Employees.*
+        FROM Deductions
+        INNER JOIN Employees ON Deductions.EmployeeID=Employees.ID
+        
+        `);
         return result.recordset;
     } catch (error) {
         throw new Error('Could not fetch all Deductions: ' + error.message);
     }
 };
+// export const getAllDeductionServices = async () => {
+//   try {
+//       const result = await poolRequest().query(`
+//           SELECT Deductions.*, Employees.*
+//           FROM Deductions
+//           INNER JOIN Employees ON Deductions.employee_id = Employees.employee_id
+//       `);
+//       return result.recordset;
+//   } catch (error) {
+//       throw new Error('Could not fetch all Deductions: ' + error.message);
+//   }
+// };
+
 
 
 export const updateDeductionServices = async (DeductionID, updatedDeductionData) => {

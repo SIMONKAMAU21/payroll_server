@@ -30,20 +30,15 @@ export const getUserByEmailService = async (Email) => {
 };
 
 
-export const getUserByIdService = async (userID) => {
+export const getUserByIdService = async (ID) => {
     try {
         const user = await poolRequest()
-            .input('ID', sql.Int, userID)
+            .input('ID', sql.Int, ID)
             .query(`SELECT  Employees.*,Attendance.*,Schedules.*
             FROM Employees
             JOIN Attendance   ON Attendance.EmployeeID= Employees.ID
             JOIN Schedules ON Schedules.EmployeeID =Employees.ID WHERE Employees.ID=@ID`);
-
-        if (user.recordset.length === 0) {
-            throw new Error('User not found');
-        }
-
-        return user.recordset[0];
+             return user.recordset[1];
     } catch (error) {
         throw new Error('Could not fetch user by ID: ' + error.message);
     }
