@@ -54,12 +54,11 @@ export const addAttendanceServices = async (EmployeeID, newAttendance) => {
     }
   };
 
-  export const deleteAttendanceServices = async (ID) => {
+  export const deleteAttendanceServices = async () => {
     try {
       const Attendance = await poolRequest()
-        .input('ID', sql.Int, ID)
-        .query(`DELETE FROM Attendance WHERE ID = @ID`);
-  
+    
+        .query(`DELETE FROM Attendance `);
       return Attendance.rowsAffected[0] > 0;
     } catch (error) {
       throw new Error("Failed to delete Attendance: " + error.message);

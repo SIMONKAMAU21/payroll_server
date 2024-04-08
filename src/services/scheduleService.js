@@ -8,7 +8,7 @@ import sql  from "mssql";
 export const getAllSchedulesServices = async () => {
   try {
     const result = await poolRequest().query(`
-      SELECT S.*, E.Firstname, E.Lastname, E.PositionID  -- Include additional employee details as needed
+      SELECT S.*, E.Firstname, E.Lastname, E.PositionID  
       FROM Schedules S
       INNER JOIN Employees E ON E.ID = S.EmployeeID
     `);
@@ -24,8 +24,8 @@ export const getAllSchedulesServices = async () => {
       const result = await poolRequest()
         .input('EmployeeID', sql.Int, EmployeeID)
         .input('Days', sql.VarChar, newSchedule.Schedules_name)
-        .input('StartTime', sql.Time, newSchedule.StartTime)
-        .input('EndTime', sql.Time, newSchedule.EndTime)
+        .input('StartTime', sql.DateTime, newSchedule.StartTime)
+        .input('EndTime', sql.DateTime, newSchedule.EndTime)
         .query(`
           INSERT INTO Schedules (EmployeeID, Days, StartTime, EndTime) 
           VALUES (@EmployeeID, @Days, @StartTime, @EndTime)

@@ -1,7 +1,6 @@
-import { response } from "express";
 import { sendBadRequest, sendCreated, sendDeleteSuccess, sendNotFound, sendServerError, sendSuccess } from "../helper/helper.function.js";
 import { addAttendanceServices, deleteAttendanceServices, getAllAttendanceByEmployeeId, getAllAttendanceServices, recordTimeInServices, updateAttendanceServices } from "../services/attendanceServices.js";
-
+import cron, { schedule } from "node-cron"
 
 
 export const addAttendance = async (req, res) => {
@@ -56,19 +55,31 @@ export const updateAttendance = async (req, res) => {
       sendServerError(res, error.message);
     }
   };
-  export const deleteAttendance = async (req, res) => {
-    const ID = req.params.ID;
+
+  
+  // Schedule cron job to delete attendance data after 5 minutes
+  cron.schedule("* */16 * * *", async () => {
     try {
-      const success = await deleteAttendanceServices(ID);
-      if (success) {
-        sendDeleteSuccess(res, 'Attendance deleted successfully');
-      } else {
-        sendNotFound(res, 'Attendance not found');
-      }
+      await deleteAttendanceServices();
+      console.log('Attendance deleted after 5 minutes');
+    } catch (error) {
+      console.error('Error deleting attendance:', error.message);
+    }
+  }, {
+    scheduled: true,
+    timezone: "Africa/Nairobi" // Adjust timezone as needed
+  });
+  
+  export const deleteAttendance = async (req, res) => {
+    try {
+      // Respond immediately to the client
+      sendDeleteSuccess(res, "Deletion scheduled");
     } catch (error) {
       sendServerError(res, error.message);
     }
   };
+  
+
 
 
 
