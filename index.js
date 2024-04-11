@@ -11,6 +11,9 @@ import DeductionRouter from './src/routes/deductionRouter.js'
 import AdvanceRouter from './src/routes/addvanceRouter.js'
 import OvertimeRouter from './src/routes/overtimeRouter.js'
 import PayrollRouter from './src/routes/PayrollRouter.js'
+import messageRouter from './src/routes/messageRouter.js'
+import conversationRouter from './src/routes/conversationRouter.js'
+import participantRouter from './src/routes/participantRouter.js'
 
 
 dotenv.config()
@@ -36,6 +39,9 @@ app.use('/api',DeductionRouter)
 app.use('/api',AdvanceRouter)
 app.use('/api',OvertimeRouter)
 app.use("/api",PayrollRouter)
+app.use("/api",messageRouter)
+app.use("/api",conversationRouter)
+app.use("/api",participantRouter)
 
 
 app.listen(port, ()=>{

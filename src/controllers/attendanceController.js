@@ -61,18 +61,16 @@ export const updateAttendance = async (req, res) => {
   cron.schedule("* */16 * * *", async () => {
     try {
       await deleteAttendanceServices();
-      console.log('Attendance deleted after 5 minutes');
     } catch (error) {
       console.error('Error deleting attendance:', error.message);
     }
   }, {
     scheduled: true,
-    timezone: "Africa/Nairobi" // Adjust timezone as needed
+    timezone: "Africa/Nairobi"
   });
   
   export const deleteAttendance = async (req, res) => {
     try {
-      // Respond immediately to the client
       sendDeleteSuccess(res, "Deletion scheduled");
     } catch (error) {
       sendServerError(res, error.message);

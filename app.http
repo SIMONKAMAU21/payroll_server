@@ -1,9 +1,10 @@
 
 ### Request
-GET http://localhost:3000/health
+GET http://localhost:8000/health
 
 ### getting all users
 GET http://localhost:8000/api/users
+Authorization:JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6InNpbW9nYXR1bWEyMUBnbWFpbC5jb20iLCJpYXQiOjE3MTI3NDEyNjcsImV4cCI6MTcxMjc4NDQ2N30.8Pg5t-WkxI5KvsDewKhiCUqOJ1hQ2r7rLaJHQkSMNlk
 
 ###
 GET httP://localhost:8000/api/users/devngec@gmail.com
@@ -18,13 +19,15 @@ POST httP://localhost:8000/api/users/login
 Content-Type: application/json
 
 {
-    "Email":"simogatuma22@gmail.com", 
-    "Password":"simon"
+    "Email":"simogatuma21@gmail.com", 
+    "Password":"kamau"
 }
 
 ### REGISTERING A USER
 POST http://localhost:8000/api/users/register
 Content-Type: application/json
+Authorization:JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6InNpbW9nYXR1bWEyMUBnbWFpbC5jb20iLCJpYXQiOjE3MTI3NDEyNjcsImV4cCI6MTcxMjc4NDQ2N30.8Pg5t-WkxI5KvsDewKhiCUqOJ1hQ2r7rLaJHQkSMNlk
+
 
 {
     "Firstname":"Robinson",
@@ -258,3 +261,50 @@ GET http://localhost:8000/api/Payrolls
 ###
 GET http://localhost:8000/api/Payrolls/7
 
+### MESSAGES/////////////////////////////////////////////////////
+POST  http://localhost:8000/api/sendmessages
+Content-Type:application/json
+
+{
+     "Conversation_id":"1006",
+     "Sender_id":"6",
+     "Content":"doing good what about you, <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero illo sunt maiores quae, optio minus sit quos nulla architecto, ipsa eos quo. In, est? Quasi mollitia aut voluptatum iste obcaecati?</p>"
+}
+
+
+###
+GET http://localhost:8000/api/messages/1006
+
+###
+DELETE http://localhost:8000/api/messages/delete/1006
+
+
+### creating conversation///////////////////////////////////////////////////
+POST  http://localhost:8000/api/conversation
+Content-Type: application/json
+
+
+{
+    "Title":"simon"
+}
+
+###
+GET http://localhost:8000/api/conversations
+
+
+
+### participants/////////////////////////////////////////////////////////
+POST  http://localhost:8000/api/add/participant
+Content-Type: application/json
+
+
+{
+   "EmployeeID":"1011",
+   "Conversation_id":"1006"
+}
+
+###
+GET http://localhost:8000/api/participant
+
+###
+GET http://localhost:8000/api/participant/6

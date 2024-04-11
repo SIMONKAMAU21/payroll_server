@@ -1,9 +1,9 @@
 import jwt from "jsonwebtoken";
-import { notAuthorized } from "../helpers/helper.function.js";
 import dotenv from 'dotenv'
+import { notAuthorized } from "../helper/helper.function.js";
 dotenv.config()
 
-export const verifyUserIdentity = (req, res, next) => {
+export const auth = (req, res, next) => {
     if (req.headers && req.headers.authorization && req.headers.authorization.split(' ')[0] === 'JWT') {
         jwt.verify(req.headers.authorization.split(' ')[1], "secret", (err, decode) =>  {
             if (err) {

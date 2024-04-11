@@ -1,11 +1,12 @@
 import { Router } from "express";
 import { addPosition, deleteposition, getAllpositionByIdController, getAllpositionController, updateposition } from "../controllers/positionController.js";
+import { auth } from "../middlewares/userAuthentication.js";
 
 const positionRouter = Router();
-positionRouter.get("/positions",getAllpositionController)
-positionRouter.get("/positions/:PositionID",getAllpositionByIdController)
-positionRouter.put('/positions/update/:ID',updateposition);
-positionRouter.post('/positions/register',addPosition);
-positionRouter.delete('/positions/delete/:ID',deleteposition);
+positionRouter.get("/positions",auth,getAllpositionController)
+positionRouter.get("/positions/:PositionID",auth,getAllpositionByIdController)
+positionRouter.put('/positions/update/:ID',auth,updateposition);
+positionRouter.post('/positions/register',auth,addPosition);
+positionRouter.delete('/positions/delete/:ID',auth,deleteposition);
 
 export default positionRouter                                                                                     
